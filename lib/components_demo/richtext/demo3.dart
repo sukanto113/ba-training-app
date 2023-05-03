@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class RichTextDemo3 extends StatelessWidget {
@@ -9,7 +10,7 @@ class RichTextDemo3 extends StatelessWidget {
       home: Scaffold(
         body: Center(
           child: RichText(
-            text: const TextSpan(
+            text: TextSpan(
               style: TextStyle(color: Colors.black),
               children: <TextSpan>[
                 TextSpan(text: 'This is'),
@@ -20,6 +21,10 @@ class RichTextDemo3 extends StatelessWidget {
                 TextSpan(
                   text: ' red',
                   style: TextStyle(color: Colors.red),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      print("Click on red text");
+                    },
                 ),
                 TextSpan(text: ' text'),
               ],
