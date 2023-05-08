@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class NavtgationBarDemo1 extends StatefulWidget {
-  const NavtgationBarDemo1({super.key});
+class NavigationBarDemo1 extends StatefulWidget {
+  const NavigationBarDemo1({super.key});
 
   @override
-  State<NavtgationBarDemo1> createState() => _NavtgationBarDemo1State();
+  State<NavigationBarDemo1> createState() => _NavtgationBarDemo1State();
 }
 
-class _NavtgationBarDemo1State extends State<NavtgationBarDemo1> {
+class _NavtgationBarDemo1State extends State<NavigationBarDemo1> {
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
