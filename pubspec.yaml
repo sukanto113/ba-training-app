@@ -43,6 +43,8 @@ dependencies:
   url_launcher: ^6.1.10
   path_provider: ^2.0.15
   webview_flutter: ^4.2.0
+  cached_network_image: ^3.2.3
+  skeleton_animation: ^0.1.4
 
 dev_dependencies:
   flutter_test:

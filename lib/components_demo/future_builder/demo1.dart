@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:skeleton_animation/skeleton_animation.dart';
 
 class FutureBuilderDemo1 extends StatefulWidget {
   const FutureBuilderDemo1({super.key});
@@ -56,8 +57,17 @@ class _FutureBuilderDemo1State extends State<FutureBuilderDemo1> {
                 ),
               );
             } else {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return Center(
+                child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (context, index) {
+                    return const Card(
+                      child: ListTile(
+                        title: SkeletonText(height: 12),
+                      ),
+                    );
+                  },
+                ),
               );
             }
           },
