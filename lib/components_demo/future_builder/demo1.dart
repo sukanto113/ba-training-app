@@ -1,6 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:skeleton_animation/skeleton_animation.dart';
+import 'package:skeletons/skeletons.dart';
+
+class CountryInfo {
+  final String name;
+  final String code;
+  final String region;
+
+  CountryInfo({
+    required this.name,
+    required this.code,
+    required this.region,
+  });
+}
 
 class FutureBuilderDemo1 extends StatefulWidget {
   const FutureBuilderDemo1({super.key});
@@ -10,13 +22,19 @@ class FutureBuilderDemo1 extends StatefulWidget {
 }
 
 class _FutureBuilderDemo1State extends State<FutureBuilderDemo1> {
-  late Future<List<String>> _futureCountries;
-  Future<List<String>> getCountries() async {
+  late Future<List<CountryInfo>> _futureCountries;
+  Future<List<CountryInfo>> getCountries() async {
     final res = await Dio().get("https://api.first.org/data/v1/countries");
     final data = res.data["data"];
-    final List<String> countries = [];
+    final List<CountryInfo> countries = [];
     for (final countryCode in data.keys) {
-      countries.add(data[countryCode]["country"]);
+      countries.add(
+        CountryInfo(
+          name: data[countryCode]["country"],
+          code: countryCode,
+          region: data[countryCode]["region"],
+        ),
+      );
     }
     return countries;
   }
@@ -30,47 +48,62 @@ class _FutureBuilderDemo1State extends State<FutureBuilderDemo1> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: FutureBuilder(
-          future: _futureCountries,
-          builder: (context, snapshot) {
-            print(snapshot.connectionState);
-            if (snapshot.hasData) {
-              return Center(
-                child: ListView.builder(
+      home: SafeArea(
+        child: Scaffold(
+          body: FutureBuilder(
+            future: _futureCountries,
+            builder: (context, snapshot) {
+              print(snapshot.connectionState);
+              if (snapshot.hasData) {
+                return ListView.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      child: ListTile(
-                        leading: const Icon(Icons.star_border),
-                        title: Text(snapshot.data!.elementAt(index)),
+                    final countryInfo = snapshot.data!.elementAt(index);
+                    return ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.teal,
+                        child: Text(
+                          countryInfo.code,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
+                      title: Text(countryInfo.name),
+                      subtitle: Text(countryInfo.region),
                     );
                   },
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text(
-                  "Error!",
-                  style: TextStyle(fontSize: 20, color: Colors.red),
-                ),
-              );
-            } else {
-              return Center(
-                child: ListView.builder(
-                  itemCount: 10,
+                );
+              } else if (snapshot.hasError) {
+                return const Center(
+                  child: Text(
+                    "Error!",
+                    style: TextStyle(fontSize: 20, color: Colors.red),
+                  ),
+                );
+              } else {
+                // return SkeletonListView();
+                return ListView.builder(
                   itemBuilder: (context, index) {
-                    return const Card(
-                      child: ListTile(
-                        title: SkeletonText(height: 12),
+                    return ListTile(
+                      leading: SkeletonAvatar(
+                        style: SkeletonAvatarStyle(
+                          borderRadius: BorderRadius.circular(50),
+                          height: 40,
+                          width: 40,
+                        ),
+                      ),
+                      title: const SkeletonLine(),
+                      subtitle: const SkeletonLine(
+                        style: SkeletonLineStyle(width: 100),
                       ),
                     );
                   },
-                ),
-              );
-            }
-          },
+                );
+              }
+            },
+          ),
         ),
       ),
     );
