@@ -47,6 +47,7 @@ dependencies:
   skeleton_animation: ^0.1.4
   skeletons: ^0.0.3
   sqflite: ^2.2.8+2
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:
