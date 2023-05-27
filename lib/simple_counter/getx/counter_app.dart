@@ -25,6 +25,7 @@ class CounterWithGetX extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // counterController.value.
     return CounterAppLayout(
       counterValue: Obx(
         () => CounterValueWidget(value: counterController.value.toInt()),

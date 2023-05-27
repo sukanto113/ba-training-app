@@ -3,6 +3,8 @@ import 'package:ba_training_app/getx_demo/coltrollers/shopping_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../models/product.dart';
+
 class GetXShoppingPageDemo extends StatelessWidget {
   final shoppingController = Get.put(ShoppingController());
   final cartController = Get.put(CartController());
@@ -19,51 +21,17 @@ class GetXShoppingPageDemo extends StatelessWidget {
             children: [
               Expanded(
                 child: GetX<ShoppingController>(
+                  init: ShoppingController(),
                   builder: (controller) {
-                    return ListView.builder(
-                      itemCount: controller.products.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          margin: const EdgeInsets.all(12),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${controller.products[index].productName}',
-                                          style: TextStyle(fontSize: 24),
-                                        ),
-                                        Text(
-                                            '${controller.products[index].productDescription}'),
-                                      ],
-                                    ),
-                                    Text(
-                                        '\$${controller.products[index].price}',
-                                        style: TextStyle(fontSize: 24)),
-                                  ],
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    cartController
-                                        .addToCart(controller.products[index]);
-                                  },
-                                  child: const Text('Add to Cart'),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
+                    if (controller.products.value != null) {
+                      final prodcts = controller.products;
+
+                      return NewWidget(products: prodcts);
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                   },
                 ),
               ),
@@ -101,6 +69,63 @@ class GetXShoppingPageDemo extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class NewWidget extends StatelessWidget {
+  final cartController = Get.put(CartController());
+
+  NewWidget({
+    super.key,
+    // required this.cartController,
+    required this.products,
+  });
+
+  // final CartController cartController;
+  final List<Product> products;
+  // final cartController = Get.find();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: products.length,
+      itemBuilder: (context, index) {
+        return Card(
+          margin: const EdgeInsets.all(12),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${products[index].productName}',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        Text('${products[index].productDescription}'),
+                      ],
+                    ),
+                    Text('${products[index].price}',
+                        style: TextStyle(fontSize: 24)),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    cartController.addToCart(products[index]);
+                  },
+                  child: const Text('Add to Cart'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
