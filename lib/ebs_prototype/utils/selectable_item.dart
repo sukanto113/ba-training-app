@@ -7,7 +7,7 @@ class SelectableItem {
   });
   final String displayName;
   Rxn<SelectableItem> rxValue;
-  void onSelect(){
+  void onSelect() {
     rxValue.value = this;
   }
 
@@ -15,4 +15,9 @@ class SelectableItem {
   String toString() {
     return displayName;
   }
+}
+
+abstract class SelectableItemGroup {
+  late final rxValue = Rxn<SelectableItem>();
+  List<SelectableItem> get items;
 }
