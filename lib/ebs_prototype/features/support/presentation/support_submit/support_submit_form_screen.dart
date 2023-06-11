@@ -7,6 +7,7 @@ import 'package:ba_training_app/ebs_prototype/widgets/custom_search_dropdown.dar
 import 'package:ba_training_app/ebs_prototype/widgets/custom_text_ield.dart';
 import 'package:ba_training_app/ebs_prototype/widgets/gaps.dart';
 import 'package:ba_training_app/ebs_prototype/widgets/visibilityrx.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -69,19 +70,29 @@ class _SupportSubmitFormState extends State<SupportSubmitForm> {
             visible: controller.state.isAssignToVisible,
             child: Column(
               children: [
-                CustomSearchDropDown(
-                  selectedItem: "Sukanto Saha",
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value == null) {
-                      return '';
-                    }
-                    return null;
+                Obx(
+                  () {
+                    final futureAssignToList =
+                        controller.state.assignToList.value;
+                    return DropdownSearch<String>(
+                      // selectedItem: controller.state.ass,
+                      // autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        if (value == null) {
+                          return '';
+                        }
+                        return null;
+                      },
+                      // onSelected: (String value) {},
+                      // title: 'Assign To',
+                      // searchBox: true,
+
+                      // items: controller.state.assignToList.value,
+                      asyncItems: (t) async {
+                        return await futureAssignToList;
+                      },
+                    );
                   },
-                  onSelected: (String value) {},
-                  title: 'Assign To',
-                  searchBox: true,
-                  items: [],
                 ),
                 const ShortVerticalGap(),
               ],

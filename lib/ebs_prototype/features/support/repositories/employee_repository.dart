@@ -2,7 +2,7 @@ import 'package:ba_training_app/ebs_prototype/features/support/domain/employee.d
 
 class EmplyeeRepository {
   static Future<Iterable<Employee>> getAllEmployee() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 5));
     return [
       Employee(name: "Sukanto Saha"),
       Employee(name: "Hussain Kabir Badhon"),

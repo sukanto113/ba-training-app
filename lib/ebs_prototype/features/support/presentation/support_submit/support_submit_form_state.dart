@@ -45,6 +45,8 @@ class SupportFormState {
   late final supportType = supportTypeGroup.rxValue;
   late final supportTypeOptions = supportTypeGroup.items;
   final isAssignToVisible = false.obs;
+  final Rx<Future<List<String>>> assignToList =
+      Rx<Future<List<String>>>(Future.value([]));
 
   void syncWithSupportItem(SupportItem item) {
     supportType.value = supportTypeGroup.typeToItemMap[item.type];

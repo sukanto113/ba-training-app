@@ -1,5 +1,6 @@
 import 'package:ba_training_app/ebs_prototype/features/support/application/support_edit_service.dart';
 import 'package:ba_training_app/ebs_prototype/features/support/domain/support.dart';
+import 'package:ba_training_app/ebs_prototype/features/support/repositories/employee_repository.dart';
 import 'package:get/get.dart';
 
 import 'support_submit_form_state.dart';
@@ -13,8 +14,18 @@ class SupportSubmitFormController extends GetxController {
   SupportSubmitFormController({SupportItem? existingItem})
       : _app = SupportEditApplication(existingItem) {
     _setupSubmitButtonText(existingItem);
-    _syncWithApp();
+    _setupAssignToList();
     _listenSupportTypeChange();
+    _syncWithApp();
+  }
+
+  void _setupAssignToList() async {
+    state.assignToList.value = _getAllEmployeeFromRepo();
+  }
+
+  Future<List<String>> _getAllEmployeeFromRepo() async {
+    final emplyeeList = await EmplyeeRepository.getAllEmployee();
+    return emplyeeList.map((e) => e.name ?? "").toList();
   }
 
   void _listenSupportTypeChange() {
