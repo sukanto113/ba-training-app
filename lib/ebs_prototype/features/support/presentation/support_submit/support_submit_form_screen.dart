@@ -1,4 +1,4 @@
-import 'package:ba_training_app/ebs_prototype/features/support/domain/support_list_model.dart';
+import 'package:ba_training_app/ebs_prototype/features/support/domain/support_item.dart';
 import 'package:ba_training_app/ebs_prototype/features/support/presentation/support_submit/support_submit_form_controller.dart';
 import 'package:ba_training_app/ebs_prototype/utils/constants/text_constants.dart';
 import 'package:ba_training_app/ebs_prototype/widgets/custom_form_titile_label.dart';

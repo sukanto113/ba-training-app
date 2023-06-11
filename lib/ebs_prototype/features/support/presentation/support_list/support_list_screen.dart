@@ -1,4 +1,4 @@
-import 'package:ba_training_app/ebs_prototype/features/support/domain/support_list_model.dart';
+import 'package:ba_training_app/ebs_prototype/features/support/domain/support_item.dart';
 import 'package:ba_training_app/ebs_prototype/features/support/presentation/support_list/support_list_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

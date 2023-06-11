@@ -1,4 +1,4 @@
-import 'package:ba_training_app/ebs_prototype/features/support/domain/support_list_model.dart';
+import 'package:ba_training_app/ebs_prototype/features/support/domain/support_item.dart';
 
 class SupportRepository {
   static Future<List<SupportItem>> getAllSupport() async {
