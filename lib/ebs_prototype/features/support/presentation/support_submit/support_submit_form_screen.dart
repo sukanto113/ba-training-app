@@ -41,10 +41,33 @@ class SupportSubmitForm extends StatefulWidget {
 
 class _SupportSubmitFormState extends State<SupportSubmitForm> {
   final _formKey = GlobalKey<FormState>();
+  final titleEditingController = TextEditingController();
+  final descriptoinEditingController = TextEditingController();
+
+  @override
+  void dispose() {
+    titleEditingController.dispose();
+    descriptoinEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print("Build called");
     final SupportSubmitFormController controller = Get.find();
+    titleEditingController.text = controller.state.title.value ?? "";
+    descriptoinEditingController.text =
+        controller.state.description.value ?? "";
+    final String assignTo = controller.state.assignTo.value;
+
+    titleEditingController.addListener(() {
+      controller.setTitle(titleEditingController.text);
+    });
+
+    descriptoinEditingController.addListener(() {
+      controller.setDescription(descriptoinEditingController.text);
+    });
+
     return Form(
       key: _formKey,
       child: ListView(
@@ -58,7 +81,7 @@ class _SupportSubmitFormState extends State<SupportSubmitForm> {
           const ShortVerticalGap(),
           CustomTextField(
             onChangedFunction: (val) {},
-            // controller: purposeController,
+            controller: titleEditingController,
             textInputType: TextInputType.text,
             readOnly: false,
             maxValue: 1,
@@ -75,19 +98,18 @@ class _SupportSubmitFormState extends State<SupportSubmitForm> {
                     final futureAssignToList =
                         controller.state.assignToList.value;
                     return DropdownSearch<String>(
-                      // selectedItem: controller.state.ass,
-                      // autovalidateMode: AutovalidateMode.onUserInteraction,
+                      selectedItem: assignTo,
                       validator: (value) {
                         if (value == null) {
                           return '';
                         }
                         return null;
                       },
-                      // onSelected: (String value) {},
-                      // title: 'Assign To',
-                      // searchBox: true,
-
-                      // items: controller.state.assignToList.value,
+                      onChanged: (String? value) {
+                        if (value != null) {
+                          controller.setAssignTo(value);
+                        }
+                      },
                       asyncItems: (t) async {
                         return await futureAssignToList;
                       },
@@ -100,7 +122,7 @@ class _SupportSubmitFormState extends State<SupportSubmitForm> {
           ),
           CustomTextField(
             onChangedFunction: (val) {},
-            // controller: purposeController,
+            controller: descriptoinEditingController,
             textInputType: TextInputType.text,
             readOnly: false,
             maxValue: 1,
@@ -109,7 +131,9 @@ class _SupportSubmitFormState extends State<SupportSubmitForm> {
           ),
           const ShortVerticalGap(),
           CustomButton(
-            onPressed: () async {},
+            onPressed: () async {
+              controller.submit();
+            },
             buttonName: "save",
             icons: Icons.folder_open,
             buttonColor: Colors.indigo,

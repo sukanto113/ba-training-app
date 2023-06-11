@@ -19,6 +19,21 @@ class SupportSubmitFormController extends GetxController {
     _syncWithApp();
   }
 
+  void setAssignTo(String name) {
+    _app.setAssignTo(name);
+    _syncWithApp();
+  }
+
+  void setTitle(String title) {
+    _app.setTitle(title);
+    _syncWithApp();
+  }
+
+  void setDescription(String description) {
+    _app.setDescription(description);
+    _syncWithApp();
+  }
+
   void _setupAssignToList() async {
     state.assignToList.value = _getAllEmployeeFromRepo();
   }
@@ -49,5 +64,9 @@ class SupportSubmitFormController extends GetxController {
     } else {
       submitButtonText = "Update";
     }
+  }
+
+  void submit() {
+    print(_app.supportItem);
   }
 }

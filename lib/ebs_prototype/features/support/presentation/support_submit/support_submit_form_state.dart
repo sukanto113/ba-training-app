@@ -47,9 +47,15 @@ class SupportFormState {
   final isAssignToVisible = false.obs;
   final Rx<Future<List<String>>> assignToList =
       Rx<Future<List<String>>>(Future.value([]));
+  final assignTo = "".obs;
+  final Rxn<String> title = Rxn();
+  final Rxn<String> description = Rxn();
 
   void syncWithSupportItem(SupportItem item) {
     supportType.value = supportTypeGroup.typeToItemMap[item.type];
     isAssignToVisible.value = item.type == SupportType.supportTicket;
+    assignTo.value = item.assignTo?.name ?? "";
+    title.value = item.title;
+    description.value = item.description;
   }
 }

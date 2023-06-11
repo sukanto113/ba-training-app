@@ -15,12 +15,12 @@ class SupportRepository {
       SupportItem(
         type: SupportType.task,
         title: "A Task",
-        description: "this is a support ticket",
+        description: "this is a support task",
       ),
       SupportItem(
         type: SupportType.todo,
         title: "A Todo",
-        description: "this is a support ticket",
+        description: "this is a support todo",
       ),
     ];
   }
