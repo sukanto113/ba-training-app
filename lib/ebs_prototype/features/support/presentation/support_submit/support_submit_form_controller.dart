@@ -5,13 +5,12 @@ import 'support_submit_form_state.dart';
 
 class SupportSubmitFormController extends GetxController {
   SupportFormState state = SupportFormState();
-  SupportItem? existingItem;
+  late SupportItem supportItem;
 
-  SupportSubmitFormController({this.existingItem}) {
-    SupportItem? item = existingItem;
-    if (item != null) {
-      state.fromSupportItem(item);
-    }
+  SupportSubmitFormController({SupportItem? existingItem}) {
+    // SupportItem item = supportItem ?? ;
+    supportItem = existingItem ?? SupportItem();
+    state.syncWithSupportItem(supportItem);
 
     ever(state.supportType, (type) {
       onSupportTypeChange();
@@ -19,7 +18,10 @@ class SupportSubmitFormController extends GetxController {
   }
 
   void onSupportTypeChange() {
-    print("support type is changed: ${state.supportType}");
-    // adjust..visibility
+    if (state.supportType.value != null) {
+      final item = supportItem
+          .setType(state.supportTypeGroup.itemToTypeMap[state.supportType]!);
+      state.syncWithSupportItem(item);
+    }
   }
 }

@@ -23,7 +23,7 @@ class _CustomRadioButtonGroupState extends State<CustomRadioButtonGroup> {
   void _controllChange(SelectableItem value) {
     setState(() {
       selectedValue = value;
-      value.onSelect();
+      value.select();
     });
   }
 

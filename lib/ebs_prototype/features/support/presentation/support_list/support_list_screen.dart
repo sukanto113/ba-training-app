@@ -65,7 +65,7 @@ class SupportListItemWidget extends StatelessWidget {
     final c = Get.find<SupportListController>();
 
     return ListTile(
-      title: Text(item.title),
+      title: Text(item.title ?? ""),
       trailing: IconButton(
         icon: const Icon(Icons.edit),
         onPressed: () => c.editSupport(item),

@@ -1,14 +1,23 @@
 import 'package:get/get.dart';
 
-class SelectableItem {
+class SelectableItem<T extends Enum> {
   SelectableItem({
     required this.displayName,
-    required this.rxValue,
-  });
+    required this.group,
+    required this.onSelect,
+    required this.type,
+  }) {
+    group.items.add(this);
+    group.itemToTypeMap[this] = type;
+    group.typeToItemMap[type] = this;
+  }
   final String displayName;
-  Rxn<SelectableItem> rxValue;
-  void onSelect() {
-    rxValue.value = this;
+  final SelectableItemGroup<T> group;
+  final T type;
+  final Function() onSelect;
+
+  void select() {
+    onSelect();
   }
 
   @override
@@ -17,7 +26,8 @@ class SelectableItem {
   }
 }
 
-abstract class SelectableItemGroup {
-  late final rxValue = Rxn<SelectableItem>();
-  List<SelectableItem> get items;
+abstract class SelectableItemGroup<T extends Enum> {
+  final List<SelectableItem> items = [];
+  final Map<T, SelectableItem<T>> typeToItemMap = {};
+  final Map<SelectableItem<T>, T> itemToTypeMap = {};
 }
