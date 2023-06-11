@@ -33,7 +33,7 @@ class SupportItem {
 }
 
 extension MutableSupportItem on SupportItem {
-  SupportItem setType(SupportType type) {
+  SupportItem setType(SupportType? type) {
     return copyWith(type: type);
   }
 }
