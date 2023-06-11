@@ -1,5 +1,5 @@
 import 'package:ba_training_app/ebs_prototype/features/support/application/support_edit_service.dart';
-import 'package:ba_training_app/ebs_prototype/features/support/domain/support_item.dart';
+import 'package:ba_training_app/ebs_prototype/features/support/domain/support.dart';
 import 'package:get/get.dart';
 
 import 'support_submit_form_state.dart';

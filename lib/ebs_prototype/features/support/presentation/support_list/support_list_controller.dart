@@ -1,4 +1,4 @@
-import 'package:ba_training_app/ebs_prototype/features/support/domain/support_item.dart';
+import 'package:ba_training_app/ebs_prototype/features/support/domain/support.dart';
 import 'package:ba_training_app/ebs_prototype/features/support/repositories/support_repository.dart';
 import 'package:ba_training_app/ebs_prototype/features/support/presentation/support_submit/support_submit_form_screen.dart';
 import 'package:get/get.dart';

@@ -1,3 +1,5 @@
+import 'package:ba_training_app/ebs_prototype/features/support/domain/employee.dart';
+
 enum SupportType {
   supportTicket,
   task,
@@ -13,13 +15,13 @@ class SupportItem {
   });
 
   final SupportType? type;
-  final String? assignTo;
+  final Employee? assignTo;
   final String? title;
   final String? description;
 
   SupportItem copyWith({
     SupportType? type,
-    String? assignTo,
+    Employee? assignTo,
     String? title,
     String? description,
   }) {

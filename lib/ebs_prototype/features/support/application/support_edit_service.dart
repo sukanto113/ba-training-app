@@ -1,4 +1,4 @@
-import 'package:ba_training_app/ebs_prototype/features/support/domain/support_item.dart';
+import 'package:ba_training_app/ebs_prototype/features/support/domain/support.dart';
 
 class SupportEditApplication {
   late SupportItem supportItem;

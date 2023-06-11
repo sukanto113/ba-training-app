@@ -1,4 +1,6 @@
-import 'package:ba_training_app/ebs_prototype/features/support/domain/support_item.dart';
+import 'package:ba_training_app/ebs_prototype/features/support/domain/support.dart';
+
+import '../domain/employee.dart';
 
 class SupportRepository {
   static Future<List<SupportItem>> getAllSupport() async {
@@ -8,7 +10,7 @@ class SupportRepository {
         type: SupportType.supportTicket,
         title: "A Support Ticket",
         description: "this is a support ticket",
-        assignTo: "Sukanto Saha",
+        assignTo: Employee(name: "Sukanto Saha"),
       ),
       SupportItem(
         type: SupportType.task,
