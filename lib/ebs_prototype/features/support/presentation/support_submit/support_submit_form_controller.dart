@@ -8,8 +8,11 @@ class SupportSubmitFormController extends GetxController {
   SupportFormState state = SupportFormState();
   final SupportEditApplication _app;
 
+  late final String submitButtonText;
+
   SupportSubmitFormController({SupportItem? existingItem})
       : _app = SupportEditApplication(existingItem) {
+    _setupSubmitButtonText(existingItem);
     _syncWithApp();
     _listenSupportTypeChange();
   }
@@ -27,5 +30,13 @@ class SupportSubmitFormController extends GetxController {
   void _setSupportType() {
     _app.setType(state.supportTypeGroup.itemToTypeMap[state.supportType]);
     _syncWithApp();
+  }
+
+  void _setupSubmitButtonText(SupportItem? existingItem) {
+    if (existingItem == null) {
+      submitButtonText = "Save";
+    } else {
+      submitButtonText = "Update";
+    }
   }
 }

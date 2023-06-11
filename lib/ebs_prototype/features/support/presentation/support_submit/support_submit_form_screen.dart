@@ -1,8 +1,10 @@
 import 'package:ba_training_app/ebs_prototype/features/support/domain/support_item.dart';
 import 'package:ba_training_app/ebs_prototype/features/support/presentation/support_submit/support_submit_form_controller.dart';
 import 'package:ba_training_app/ebs_prototype/utils/constants/text_constants.dart';
+import 'package:ba_training_app/ebs_prototype/widgets/custom_button.dart';
 import 'package:ba_training_app/ebs_prototype/widgets/custom_form_titile_label.dart';
 import 'package:ba_training_app/ebs_prototype/widgets/custom_search_dropdown.dart';
+import 'package:ba_training_app/ebs_prototype/widgets/custom_text_ield.dart';
 import 'package:ba_training_app/ebs_prototype/widgets/gaps.dart';
 import 'package:ba_training_app/ebs_prototype/widgets/visibilityrx.dart';
 import 'package:flutter/material.dart';
@@ -52,21 +54,60 @@ class _SupportSubmitFormState extends State<SupportSubmitForm> {
             options: controller.state.supportTypeOptions,
             existingRadioSelected: controller.state.supportType.value,
           ),
+          const ShortVerticalGap(),
+          CustomTextField(
+            onChangedFunction: (val) {},
+            // controller: purposeController,
+            textInputType: TextInputType.text,
+            readOnly: false,
+            maxValue: 1,
+            title: 'Title',
+            isRequired: false,
+          ),
+          const ShortVerticalGap(),
           VisibilityRx(
             visible: controller.state.isAssignToVisible,
-            child: CustomSearchDropDown(
-              selectedItem: "Sukanto Saha",
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (value) {
-                if (value == null) {
-                  return '';
-                }
-                return null;
-              },
-              onSelected: (String value) {},
-              title: 'Assign To',
-              searchBox: true,
-              items: [],
+            child: Column(
+              children: [
+                CustomSearchDropDown(
+                  selectedItem: "Sukanto Saha",
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    if (value == null) {
+                      return '';
+                    }
+                    return null;
+                  },
+                  onSelected: (String value) {},
+                  title: 'Assign To',
+                  searchBox: true,
+                  items: [],
+                ),
+                const ShortVerticalGap(),
+              ],
+            ),
+          ),
+          CustomTextField(
+            onChangedFunction: (val) {},
+            // controller: purposeController,
+            textInputType: TextInputType.text,
+            readOnly: false,
+            maxValue: 1,
+            title: 'Description',
+            isRequired: false,
+          ),
+          const ShortVerticalGap(),
+          CustomButton(
+            onPressed: () async {},
+            buttonName: "save",
+            icons: Icons.folder_open,
+            buttonColor: Colors.indigo,
+            child: Text(
+              controller.submitButtonText,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
         ],
